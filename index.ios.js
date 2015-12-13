@@ -23,7 +23,9 @@ var DISABLED_WASH = 'rgba(255,255,255,0.25)';
 
 var TEXT_INPUT_REF = 'urlInput';
 var WEBVIEW_REF = 'webview';
-var DEFAULT_URL = 'https://m.facebook.com';
+var DEFAULT_URL = 'https://studio.code.org/s/frozen/stage/1/puzzle/1';
+
+var injected = "if (!winInterval) { var winInterval = setInterval( function() { if( document.querySelector('.win-feedback') ) { clearInterval( winInterval ); alert('WIN'); } } , 1000 ) };";
 
 var WebViewExample = React.createClass({
 
@@ -91,8 +93,7 @@ var WebViewExample = React.createClass({
           onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
           startInLoadingState={true}
           scalesPageToFit={this.state.scalesPageToFit}
-          injectedJavaScript = "alert('potato');"
-        />
+          injectedJavaScript = { injected } />
         <View style={styles.statusBar}>
           <Text style={styles.statusBarText}>{this.state.status}</Text>
         </View>
@@ -218,13 +219,4 @@ var styles = StyleSheet.create({
   },
 });
 
-// exports.displayName = (undefined: ?string);
-// exports.title = '<WebView>';
-// exports.description = 'Base component to display web content';
-// exports.examples = [
-//   {
-//     title: 'WebView',
-//     render(): ReactElement { return <WebViewExample />; }
-//   }
-// ];
 AppRegistry.registerComponent('LearnMinder', () => WebViewExample);
