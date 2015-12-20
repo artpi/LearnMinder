@@ -8,15 +8,13 @@ var {
   View
 } = React;
 
-var Browser = require('./browser.js').default;
-
+import Locked from './Locked';
 
 var LearnMinder = React.createClass({
   render: function() {
     return (
-      <Browser
-         url = { "http://www.wp.pl" } >
-      </Browser>
+      <Locked>
+      </Locked>
     );
   }
 });
