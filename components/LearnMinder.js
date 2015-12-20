@@ -1,12 +1,14 @@
 import React from 'react-native';
 import Locked from './Locked';
 import Browser from './Browser';
+import OnlineExam from './OnlineExam';
 
 const LearnMinder = React.createClass( {
 	getInitialState: function() {
 		return {
 			scene: 'locked',
-			url: 'http://www.wp.pl'
+			url: 'http://www.wp.pl',
+			nextLesson: 'https://studio.code.org/s/starwarsblocks/stage/1/puzzle/1'
 		};
 	},
 	update: function( change ) {
@@ -18,6 +20,8 @@ const LearnMinder = React.createClass( {
 				return ( <Locked update={this.update}></Locked> );
 			case 'browser':
 				return ( <Browser update={this.update} url={ this.state.url }></Browser> );
+			case 'code':
+				return ( <OnlineExam update={this.update} url={ this.state.nextLesson }></OnlineExam> );
 		}
 	}
 } );

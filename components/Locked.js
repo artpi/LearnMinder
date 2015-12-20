@@ -2,8 +2,8 @@ import React from 'react-native';
 import { View, Text, TouchableOpacity } from 'react-native';
 
 var Locked = React.createClass( {
-	go: function() {
-		this.props.update( {scene: 'browser'} );
+	go: function( scene ) {
+		this.props.update( {scene: scene} );
 	},
 	render: function() {
 		return (
@@ -11,9 +11,16 @@ var Locked = React.createClass( {
 				<Text>Oh noes</Text>
 
 					<TouchableOpacity
-						onPress={ this.go }>
+						onPress={ this.go.bind( this, 'browser' ) }>
 						<Text>
-							{ 'DAWAJ' }
+							{ 'ODPAL BROWSER' }
+						</Text>
+					</TouchableOpacity>
+
+					<TouchableOpacity
+						onPress={ this.go.bind( this, 'code' ) }>
+						<Text>
+							{ 'CODE.oRG' }
 						</Text>
 					</TouchableOpacity>
 			</View>
