@@ -1,25 +1,5 @@
 'use strict';
 
-var React = require('react-native');
-var {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View
-} = React;
-
-var Browser = require('./components/browser.js').default;
-
-
-var LearnMinder = React.createClass({
-  render: function() {
-    return (
-      <Browser
-         url = { "http://www.wp.pl" } >
-      </Browser>
-    );
-  }
-});
+import { AppRegistry } from 'react-native';
+import LearnMinder from './components/LearnMinder';
 AppRegistry.registerComponent('LearnMinder', () => LearnMinder);
