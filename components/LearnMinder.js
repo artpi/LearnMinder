@@ -1,6 +1,6 @@
 import React from 'react-native';
 import Locked from './Locked';
-import Browser from './browser';
+import Browser from './Browser';
 
 const LearnMinder = React.createClass( {
 	getInitialState: function() {
