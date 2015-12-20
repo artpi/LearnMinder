@@ -20,9 +20,9 @@ const LearnMinder = React.createClass( {
 			case 'locked':
 				return ( <Locked update={this.update}></Locked> );
 			case 'browser':
-				return ( <Browser update={this.update} url={ this.state.url }></Browser> );
+				return ( <Browser url={ this.state.url }></Browser> );
 			case 'code':
-				return ( <OnlineExam update={this.update} controller={ new CodeOrg( this.state.nextLesson ) } ></OnlineExam> );
+				return ( <OnlineExam controller={ new CodeOrg( this.state.nextLesson, this.update ) } ></OnlineExam> );
 		}
 	}
 } );
