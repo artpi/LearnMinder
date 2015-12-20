@@ -5,7 +5,7 @@ import WebView from 'react-native-webview-bridge';
 export default React.createClass( {
 	getInitialState: function() {
 		return {
-			url: this.props.url,
+			url: this.props.controller.getUrl(),
 			status: 'No Page Loaded',
 			backButtonEnabled: false,
 			forwardButtonEnabled: false,
@@ -32,7 +32,7 @@ export default React.createClass( {
 					onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
 					startInLoadingState={true}
 					scalesPageToFit={this.state.scalesPageToFit}
-					injectedJavaScript = { this.props.injectedJavaScript } />
+					injectedJavaScript = { this.props.controller.getInjectedJavaScript() } />
 			</View>
 		);
 	},

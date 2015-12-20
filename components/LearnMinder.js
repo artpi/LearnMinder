@@ -2,16 +2,14 @@ import React from 'react-native';
 import Locked from './Locked';
 import Browser from './Browser';
 import OnlineExam from './OnlineExam';
-
-const injection = "if (!winInterval) { var winInterval = setInterval( function() { if( document.querySelector('.win-feedback') ) { clearInterval( winInterval ); alert('WIN'); } } , 1000 ) };";
+import CodeOrg from './CodeOrgController';
 
 const LearnMinder = React.createClass( {
 	getInitialState: function() {
 		return {
 			scene: 'locked',
 			url: 'http://www.wp.pl',
-			nextLesson: 'https://studio.code.org/s/starwarsblocks/stage/1/puzzle/1',
-			injectedJavaScript: injection
+			nextLesson: 1
 		};
 	},
 	update: function( change ) {
@@ -24,7 +22,7 @@ const LearnMinder = React.createClass( {
 			case 'browser':
 				return ( <Browser update={this.update} url={ this.state.url }></Browser> );
 			case 'code':
-				return ( <OnlineExam update={this.update} url={ this.state.nextLesson } injectedJavaScript={ this.state.injectedJavaScript } ></OnlineExam> );
+				return ( <OnlineExam update={this.update} controller={ new CodeOrg( this.state.nextLesson ) } ></OnlineExam> );
 		}
 	}
 } );
