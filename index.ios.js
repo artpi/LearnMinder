@@ -10,16 +10,15 @@ var {
   View
 } = React;
 
-var OnlineExam = require('./components/onlineExam.js').default;
+var Browser = require('./components/browser.js').default;
 
 
 var LearnMinder = React.createClass({
   render: function() {
     return (
-      <OnlineExam
-         injectedJavaScript = { "if (!winInterval) { var winInterval = setInterval( function() { if( document.querySelector('.win-feedback') ) { clearInterval( winInterval ); alert('WIN'); } } , 1000 ) };" }
-         url = { "https://studio.code.org/s/frozen/stage/1/puzzle/1" } >
-      </OnlineExam>
+      <Browser
+         url = { "http://www.wp.pl" } >
+      </Browser>
     );
   }
 });
