@@ -6,9 +6,11 @@
     "start": "react-native start"
   },
   "dependencies": {
+    "react": "^0.14.3",
     "react-native": "^0.16.0",
     "react-native-webview-bridge": "^0.16.0",
-    "react-redux": "^4.0.2",
-    "redux": "^3.0.5"
+    "react-redux": "3.1.2",
+    "redux": "^3.0.5",
+    "redux-thunk": "^1.0.2"
   }
 }
