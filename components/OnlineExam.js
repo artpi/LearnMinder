@@ -1,8 +1,6 @@
-var React = require( 'react-native' );
-var {
-	View
-} = React;
-var WebView = require( 'react-native-webview-bridge' );
+import React from 'react-native';
+import { View } from 'react-native';
+import WebView from 'react-native-webview-bridge';
 
 export default React.createClass( {
 	getInitialState: function() {
