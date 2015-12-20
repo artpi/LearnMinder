@@ -1,17 +1,8 @@
-var React = require('react-native');
-var {
-	AppRegistry,
-	StyleSheet,
-	Text,
-	TextInput,
-	TouchableOpacity,
-	View
-} = React;
-
+import React from 'react-native';
 import Locked from './Locked';
 import Browser from './browser';
 
-const LearnMinder = React.createClass({
+const LearnMinder = React.createClass( {
 	getInitialState: function() {
 		return {
 			scene: 'locked',
