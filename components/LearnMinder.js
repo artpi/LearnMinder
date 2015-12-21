@@ -22,7 +22,8 @@ const LearnMinder = React.createClass( {
 			case 'browser':
 				return ( <Browser url={ this.state.url }></Browser> );
 			case 'code':
-				return ( <OnlineExam controller={ new CodeOrg( this.state.nextLesson, this.update ) } ></OnlineExam> );
+				let controller = new CodeOrg( this.state.nextLesson, this.update );
+				return ( <OnlineExam controller={ controller }></OnlineExam> );
 		}
 	}
 } );
