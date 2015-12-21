@@ -3,7 +3,7 @@ import Locked from './Locked';
 import Browser from './Browser';
 import OnlineExam from './OnlineExam';
 import CodeOrg from './CodeOrgController';
-import { View, Text, TouchableOpacity, TouchableHighlight } from 'react-native';
+import { View, Text, TouchableHighlight } from 'react-native';
 
 const LearnMinder = React.createClass( {
 	getInitialState: function() {
@@ -11,22 +11,24 @@ const LearnMinder = React.createClass( {
 			scene: 'locked',
 			url: 'http://www.wp.pl',
 			nextLesson: 1,
-			remainingInternet: 20
+			remainingInternet: 30
 		};
 	},
 	update: function( change ) {
-			console.log(change);
+		if ( change.remainingInternet ) {
+			change.remainingInternet += this.state.remainingInternet;
+		}
 
 		if ( change.remainingInternet === 0 ) {
 			clearInterval( this.counterTimer );
 			if ( this.state.scene === 'browser' ) {
-				change.scene = 'lock';
+				change.scene = 'locked';
 			}
-		} else if ( this.state.remainingInternet === 0 && change.scene === 'browser' ) {
-			change.scene = 'lock';
+		} else if ( this.state.remainingInternet < 1 && change.scene === 'browser' ) {
+			change.scene = 'locked';
 		} else if ( this.state.scene !== 'browser' && change.scene === 'browser' ) {
 			this.counterTimer = setInterval( this.tick, 1000 );
-		}	else if ( this.state.scene === 'browser' && change.scene !== 'browser' ) {
+		}	else if ( this.state.scene === 'browser' && 'scene' in change && change.scene !== 'browser' ) {
 			clearInterval( this.counterTimer );
 		}
 		this.setState( change );
@@ -46,7 +48,7 @@ const LearnMinder = React.createClass( {
 	},
 	counterTimer: null,
 	tick() {
-		this.update( { remainingInternet: ( this.state.remainingInternet - 1 ) } );
+		this.update( { remainingInternet: -1 } );
 	},
 	render: function() {
 		return (

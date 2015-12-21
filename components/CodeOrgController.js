@@ -1,9 +1,10 @@
 function CodeOrg( lesson, eventBus ) {
 	this.eventBus = eventBus;
 
-	this.message = ( msg ) => {
+	this.message = ( msg, url ) => {
 		if ( msg === 'WIN' ) {
-			eventBus( { scene: 'browser' } );
+			eventBus( { remainingInternet: 300 } );
+			console.log(url);
 		}
 	}
 }

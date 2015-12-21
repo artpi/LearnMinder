@@ -32,7 +32,7 @@ export default React.createClass( {
 					onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
 					startInLoadingState={true}
 					scalesPageToFit={this.state.scalesPageToFit}
-					onBridgeMessage={ ( msg )=> this.props.controller.message( msg ) }
+					onBridgeMessage={ ( msg )=> this.props.controller.message( msg, this.state.url ) }
 					injectedJavaScript = { this.props.controller.getInjectedJavaScript() } />
 			</View>
 		);
