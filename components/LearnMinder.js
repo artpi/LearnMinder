@@ -3,7 +3,7 @@ import Locked from './Locked';
 import Browser from './Browser';
 import OnlineExam from './OnlineExam';
 import CodeOrg from './CodeOrgController';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, TouchableHighlight } from 'react-native';
 
 const LearnMinder = React.createClass( {
 	getInitialState: function() {
@@ -43,16 +43,16 @@ const LearnMinder = React.createClass( {
 	render: function() {
 		return (
 			<View style={ { flex:1 } }>
-				<View style={ {flex:0.9} }>{ this.renderScene() }</View>
-				<View style={ {flex:0.1} }>
-					<View style={ {flexDirection: 'row', flex:1} }>
-						<Text style={ {flex:0.4} }>Remaining: { this.remainingFormat() }</Text>
-						<TouchableOpacity style={ {flex:0.3} } onPress={ ()=>this.update( { scene: 'browser' } ) }>
-							<Text>Browse</Text>
-						</TouchableOpacity>
-						<TouchableOpacity style={ {flex:0.3} } onPress={ ()=>this.update( { scene: 'code' } ) }>
-							<Text>Learn to unlock</Text>
-						</TouchableOpacity>
+				<View style={ {flex:0.925} }>{ this.renderScene() }</View>
+				<View style={ {flex:0.075} }>
+					<View style={ {flexDirection: 'row', flex:1, backgroundColor: '#f8f8f8', borderTopColor: '#b2b2b2', borderTopWidth: 1, alignItems: 'center', justifyContent: 'center'} }>
+						<Text style={ {flex:0.4, color: '#007aff'} }>Remaining: { this.remainingFormat() }</Text>
+						<TouchableHighlight style={ {flex:0.3, alignItems: 'center', justifyContent: 'center', padding: 7, backgroundColor: '#e3e4e6', margin: 7, borderRadius: 3 } } onPress={ ()=>this.update( { scene: 'browser' } ) }>
+							<Text style={{color: '#007aff' }}>Browse</Text>
+						</TouchableHighlight>
+						<TouchableHighlight style={ {flex:0.3, alignItems: 'center', justifyContent: 'center', padding: 7, backgroundColor: '#e3e4e6', margin: 7, borderRadius: 3 } } onPress={ ()=>this.update( { scene: 'code' } ) }>
+							<Text style={{color: '#007aff'}}>Learn</Text>
+						</TouchableHighlight>
 					</View>
 				</View>
 			</View>
@@ -64,7 +64,7 @@ const LearnMinder = React.createClass( {
 				this.counterStop();
 				return ( <Locked update={this.update}></Locked> );
 			case 'browser':
-				this.counterStart();
+				//this.counterStart();
 				return ( <Browser url={ this.state.url }></Browser> );
 			case 'code':
 				this.counterStop();
