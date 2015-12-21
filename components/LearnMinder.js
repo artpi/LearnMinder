@@ -7,6 +7,7 @@ import { View, Text, TouchableHighlight, LayoutAnimation } from 'react-native';
 
 const LearnMinder = React.createClass( {
 	getInitialState: function() {
+		this.controller = new CodeOrg( '1', this.update );
 		return {
 			scene: 'locked',
 			url: 'http://www.wp.pl',
@@ -80,8 +81,7 @@ const LearnMinder = React.createClass( {
 			case 'browser':
 				return ( <Browser url={ this.state.url }></Browser> );
 			case 'code':
-				let controller = new CodeOrg( this.state.nextLesson, this.update );
-				return ( <OnlineExam controller={ controller }></OnlineExam> );
+				return ( <OnlineExam controller={ this.controller }></OnlineExam> );
 		}
 	}
 } );

@@ -1,15 +1,20 @@
 function CodeOrg( lesson, eventBus ) {
+	const self = this;
 	this.eventBus = eventBus;
+	this.url = 'https://studio.code.org/s/starwarsblocks/stage/1/puzzle/1';
 
 	this.message = ( msg, url ) => {
 		if ( msg === 'WIN' ) {
 			eventBus( { remainingInternet: 300 } );
-			console.log(url);
 		}
+	}
+
+	this.getUrl = () => self.url;
+	this.saveUrl = ( url ) => {
+		self.url = url;
 	}
 }
 
-CodeOrg.prototype.getUrl = () => 'https://studio.code.org/s/starwarsblocks/stage/1/puzzle/1'
 CodeOrg.prototype.getInjectedJavaScript = () => `
 if ( !winInterval ) {
 	var winInterval = setInterval( function() {
