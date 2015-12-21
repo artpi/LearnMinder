@@ -34,11 +34,12 @@ const LearnMinder = React.createClass( {
 	tick() {
 		this.setState( { remainingInternet: ( this.state.remainingInternet - 1 ) } );
 	},
-	counterStart() {
-		this.counterTimer = setInterval( this.tick, 1000 );
-	},
-	counterStop() {
-		clearInterval( this.counterTimer );
+	componentWillUpdate( nextProps, nextState ) {
+		if ( this.state.scene !== 'browser' && nextState.scene === 'browser' ) {
+			this.counterTimer = setInterval( this.tick, 1000 );
+		}	else if ( this.state.scene === 'browser' && nextState.scene !== 'browser' ) {
+			clearInterval( this.counterTimer );
+		}
 	},
 	render: function() {
 		return (
@@ -61,13 +62,10 @@ const LearnMinder = React.createClass( {
 	renderScene: function() {
 		switch ( this.state.scene ) {
 			case 'locked':
-				this.counterStop();
 				return ( <Locked update={this.update}></Locked> );
 			case 'browser':
-				//this.counterStart();
 				return ( <Browser url={ this.state.url }></Browser> );
 			case 'code':
-				this.counterStop();
 				let controller = new CodeOrg( this.state.nextLesson, this.update );
 				return ( <OnlineExam controller={ controller }></OnlineExam> );
 		}
