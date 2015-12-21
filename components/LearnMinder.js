@@ -15,6 +15,20 @@ const LearnMinder = React.createClass( {
 		};
 	},
 	update: function( change ) {
+			console.log(change);
+
+		if ( change.remainingInternet === 0 ) {
+			clearInterval( this.counterTimer );
+			if ( this.state.scene === 'browser' ) {
+				change.scene = 'lock';
+			}
+		} else if ( this.state.remainingInternet === 0 && change.scene === 'browser' ) {
+			change.scene = 'lock';
+		} else if ( this.state.scene !== 'browser' && change.scene === 'browser' ) {
+			this.counterTimer = setInterval( this.tick, 1000 );
+		}	else if ( this.state.scene === 'browser' && change.scene !== 'browser' ) {
+			clearInterval( this.counterTimer );
+		}
 		this.setState( change );
 	},
 	remainingFormat: function() {
@@ -32,14 +46,7 @@ const LearnMinder = React.createClass( {
 	},
 	counterTimer: null,
 	tick() {
-		this.setState( { remainingInternet: ( this.state.remainingInternet - 1 ) } );
-	},
-	componentWillUpdate( nextProps, nextState ) {
-		if ( this.state.scene !== 'browser' && nextState.scene === 'browser' ) {
-			this.counterTimer = setInterval( this.tick, 1000 );
-		}	else if ( this.state.scene === 'browser' && nextState.scene !== 'browser' ) {
-			clearInterval( this.counterTimer );
-		}
+		this.update( { remainingInternet: ( this.state.remainingInternet - 1 ) } );
 	},
 	render: function() {
 		return (
