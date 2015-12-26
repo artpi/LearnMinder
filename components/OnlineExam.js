@@ -3,9 +3,16 @@ import { View } from 'react-native';
 import WebView from 'react-native-webview-bridge';
 
 export default React.createClass( {
+	getDefaultProps() {
+		return {
+			urlChanged: () => {},
+			messageReceived: () => {},
+			injectedJavaScript: ''
+		};
+	},
 	getInitialState: function() {
 		return {
-			url: this.props.controller.getUrl(),
+			url: this.props.url,
 			status: 'No Page Loaded',
 			backButtonEnabled: false,
 			forwardButtonEnabled: false,
@@ -13,11 +20,6 @@ export default React.createClass( {
 			scalesPageToFit: true,
 		};
 	},
-
-	handleTextInputChange: function( event ) {
-		this.inputText = event.nativeEvent.text;
-	},
-
 	render: function() {
 		this.inputText = this.state.url;
 
@@ -32,8 +34,8 @@ export default React.createClass( {
 					onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
 					startInLoadingState={true}
 					scalesPageToFit={this.state.scalesPageToFit}
-					onBridgeMessage={ ( msg )=> this.props.controller.message( msg, this.state.url ) }
-					injectedJavaScript = { this.props.controller.getInjectedJavaScript() } />
+					onBridgeMessage={ this.props.messageReceived }
+					injectedJavaScript = { this.props.injectedJavaScript } />
 			</View>
 		);
 	},
@@ -44,7 +46,7 @@ export default React.createClass( {
 	},
 
 	onNavigationStateChange: function( navState ) {
-		this.props.controller.saveUrl( navState.url );
+		this.props.urlChanged( navState.url );
 		this.setState( {
 			url: navState.url,
 			status: navState.title,

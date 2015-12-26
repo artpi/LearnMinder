@@ -1,8 +1,7 @@
 import React from 'react-native';
 import Locked from './Locked';
 import Browser from './Browser';
-import OnlineExam from './OnlineExam';
-import CodeOrg from './CodeOrgController';
+import CodeOrg from './CodeOrg';
 import { View, Text, TouchableHighlight, AsyncStorage } from 'react-native';
 
 const LearnMinder = React.createClass( {
@@ -13,14 +12,12 @@ const LearnMinder = React.createClass( {
 			this.setState( state );
 		} );
 
-		this.controller = new CodeOrg( this.update );
-
 		return {
 			scene: 'locked',
 			url: 'http://www.wp.pl',
 			remainingInternet: 30,
 			remainingSize: 18,
-			codeOrg: this.controller.state
+			codeOrg_url: 'https://studio.code.org/s/starwarsblocks/stage/1/puzzle/1'
 		};
 	},
 	update: function( change = {} ) {
@@ -44,8 +41,7 @@ const LearnMinder = React.createClass( {
 		let save = {
 			url: this.state.url,
 			remainingInternet: this.state.remainingInternet,
-			taskUrl: this.state.taskUrl,
-			codeOrg: this.state.codeOrg
+			codeOrg_url: this.state.codeOrg_url
 		}
 
 		AsyncStorage.setItem( 'STATE', JSON.stringify( save ) );
@@ -90,11 +86,11 @@ const LearnMinder = React.createClass( {
 	renderScene: function() {
 		switch ( this.state.scene ) {
 			case 'locked':
-				return ( <Locked update={this.update}></Locked> );
+				return ( <Locked></Locked> );
 			case 'browser':
-				return ( <Browser url={ this.state.url } update={this.update}></Browser> );
+				return ( <Browser url={ this.state.url } urlChanged={ url => { this.update( { url } ) } }></Browser> );
 			case 'code':
-				return ( <OnlineExam controller={ this.controller }></OnlineExam> );
+				return ( <CodeOrg dispatch={ this.update } url={ this.state.codeOrg_url } ></CodeOrg> );
 		}
 	}
 } );

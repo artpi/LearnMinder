@@ -16,7 +16,12 @@ var TEXT_INPUT_REF = 'urlInput';
 var WEBVIEW_REF = 'webview';
 
 export default React.createClass( {
-
+	getDefaultProps: function() {
+		return {
+			urlChanged: () => {},
+			url: 'http://learnminder.artpi.net'
+		};
+	},
 	getInitialState: function() {
 		return {
 			url: this.props.url,
@@ -114,7 +119,7 @@ export default React.createClass( {
 			loading: navState.loading,
 			scalesPageToFit: true
 		});
-		this.props.update( { url: navState.url } );
+		this.props.urlChanged( navState.url );
 	},
 
 	onSubmitEditing: function(event) {
