@@ -44,7 +44,7 @@ export default React.createClass( {
 	},
 
 	onNavigationStateChange: function( navState ) {
-		this.controller.saveUrl( navState.url );
+		this.props.controller.saveUrl( navState.url );
 		this.setState( {
 			url: navState.url,
 			status: navState.title,

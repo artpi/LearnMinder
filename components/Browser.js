@@ -114,6 +114,7 @@ export default React.createClass( {
 			loading: navState.loading,
 			scalesPageToFit: true
 		});
+		this.props.update( { url: navState.url } );
 	},
 
 	onSubmitEditing: function(event) {

@@ -1,7 +1,9 @@
-function CodeOrg( lesson, eventBus ) {
+function CodeOrg( eventBus ) {
 	const self = this;
 	this.eventBus = eventBus;
-	this.url = 'https://studio.code.org/s/starwarsblocks/stage/1/puzzle/1';
+	this.state = {
+		url: 'https://studio.code.org/s/starwarsblocks/stage/1/puzzle/1'
+	};
 
 	this.message = ( msg, url ) => {
 		if ( msg === 'WIN' ) {
@@ -9,9 +11,11 @@ function CodeOrg( lesson, eventBus ) {
 		}
 	}
 
-	this.getUrl = () => self.url;
+	this.getUrl = () => self.state.url;
+
 	this.saveUrl = ( url ) => {
-		self.url = url;
+		self.state.url = url;
+		eventBus();
 	}
 }
 

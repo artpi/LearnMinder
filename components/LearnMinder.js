@@ -3,26 +3,29 @@ import Locked from './Locked';
 import Browser from './Browser';
 import OnlineExam from './OnlineExam';
 import CodeOrg from './CodeOrgController';
-import { View, Text, TouchableHighlight, LayoutAnimation } from 'react-native';
+import { View, Text, TouchableHighlight, AsyncStorage } from 'react-native';
 
 const LearnMinder = React.createClass( {
 	getInitialState: function() {
-		this.controller = new CodeOrg( '1', this.update );
+		AsyncStorage.getItem( 'STATE' ).then( value => {
+			let state = JSON.parse( value );
+			console.log( 'LOADING DATA', state );
+			this.setState( state );
+		} );
+
+		this.controller = new CodeOrg( this.update );
+
 		return {
 			scene: 'locked',
 			url: 'http://www.wp.pl',
-			nextLesson: 1,
 			remainingInternet: 30,
 			remainingSize: 18,
+			codeOrg: this.controller.state
 		};
 	},
-	update: function( change ) {
+	update: function( change = {} ) {
 		if ( change.remainingInternet ) {
 			change.remainingInternet += this.state.remainingInternet;
-		}
-
-		if ( change.remainingSize ) {
-			LayoutAnimation.configureNext(LayoutAnimation.Presets.Spring);
 		}
 
 		if ( change.remainingInternet === 0 ) {
@@ -37,6 +40,16 @@ const LearnMinder = React.createClass( {
 		}	else if ( this.state.scene === 'browser' && 'scene' in change && change.scene !== 'browser' ) {
 			clearInterval( this.counterTimer );
 		}
+
+		let save = {
+			url: this.state.url,
+			remainingInternet: this.state.remainingInternet,
+			taskUrl: this.state.taskUrl,
+			codeOrg: this.state.codeOrg
+		}
+
+		AsyncStorage.setItem( 'STATE', JSON.stringify( save ) );
+
 		this.setState( change );
 	},
 	remainingFormat: function() {
@@ -79,7 +92,7 @@ const LearnMinder = React.createClass( {
 			case 'locked':
 				return ( <Locked update={this.update}></Locked> );
 			case 'browser':
-				return ( <Browser url={ this.state.url }></Browser> );
+				return ( <Browser url={ this.state.url } update={this.update}></Browser> );
 			case 'code':
 				return ( <OnlineExam controller={ this.controller }></OnlineExam> );
 		}
