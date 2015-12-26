@@ -3,6 +3,7 @@ import Locked from './Locked';
 import Browser from './Browser';
 import CodeOrg from './CodeOrg';
 import NavBar from './NavBar';
+import Settings from './Settings';
 import { View, AsyncStorage } from 'react-native';
 
 const LearnMinder = React.createClass( {
@@ -71,6 +72,8 @@ const LearnMinder = React.createClass( {
 				return ( <Browser url={ this.state.url } urlChanged={ url => { this.update( { url } ) } }></Browser> );
 			case 'code':
 				return ( <CodeOrg dispatch={ this.update } url={ this.state.codeOrg_url } ></CodeOrg> );
+			case 'settings':
+				return ( <Settings></Settings> );
 		}
 	}
 } );
