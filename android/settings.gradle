@@ -1,3 +1,4 @@
 rootProject.name = 'LearnMinder'
 
-include ':app'
+include ':ReactNativeDropdownAndroid', ':app'
+project(':ReactNativeDropdownAndroid').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-dropdown-android/android')

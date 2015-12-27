@@ -3,7 +3,7 @@ import Locked from './Locked';
 import Browser from './Browser';
 // import CodeOrg from './CodeOrg';
 import NavBar from './NavBar';
-// import Settings from './Settings';
+import Settings from './Settings';
 import { View, AsyncStorage } from 'react-native';
 
 const challenges = {
@@ -107,8 +107,8 @@ const LearnMinder = React.createClass( {
 		switch ( this.state.scene ) {
 			case 'locked':
 				return ( <Locked></Locked> );
-			case 'browser':
-				return ( <Browser url={ this.state.url } urlChanged={ url => { this.update( { url } ) } }></Browser> );
+			// case 'browser':
+			// 	return ( <Browser url={ this.state.url } urlChanged={ url => { this.update( { url } ) } }></Browser> );
 			// case 'code':
 			// 	return ( <CodeOrg
 			// 		win={ this.winChallenge }
@@ -116,12 +116,12 @@ const LearnMinder = React.createClass( {
 			// 		chosenChallenge={ this.state.chosenChallenge }
 			// 		saveChallenges={ this.saveChallenges }
 			// 	></CodeOrg> );
-			// case 'settings':
-			// 	return ( <Settings
-			// 		challenges={ this.state.challenges }
-			// 		chosenChallenge={ this.state.chosenChallenge }
-			// 		save={ this.update }
-			// 	></Settings> );
+			case 'settings':
+				return ( <Settings
+					challenges={ this.state.challenges }
+					chosenChallenge={ this.state.chosenChallenge }
+					save={ this.update }
+				></Settings> );
 		}
 	}
 } );
