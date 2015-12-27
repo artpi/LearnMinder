@@ -34,7 +34,6 @@ export default React.createClass( {
 	},
 	getUrl() {
 		let challenge = this.props.challenges[ this.props.chosenChallenge ];
-		console.log('czel', challenge);
 		if ( challenge ) {
 			return challenge.lastUrl || challenge.url;
 		}
