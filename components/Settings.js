@@ -2,11 +2,9 @@ import React from 'react-native';
 import {
 	Text,
 	View,
-	PickerIOS,
-	PickerItemIOS
+	PickerIOS
 } from 'react-native';
 import style from '../style';
-
 
 export default React.createClass( {
 	getDefaultProps() {
@@ -17,17 +15,15 @@ export default React.createClass( {
 		}
 	},
 	render() {
+		const options = Object.keys( this.props.challenges )
+			.map( ( val ) => React.createElement( 'PickerItemIOS', { key: val, value: val, label: ( this.props.challenges[val].label ).toString() } ) );
 		return (
 			<View>
 				<Text style={ { ...style.h2, marginTop: 30 } }>Choose a Code.org challenge:</Text>
 				<PickerIOS
 					onValueChange={ ( value ) => { this.props.save( { chosenChallenge: value } ) } }
 					selectedValue={ this.props.chosenChallenge }>
-					{
-						Object.keys( this.props.challenges ).map( ( val ) => { return (
-							<PickerItemIOS value={ val } key={ val } label={ this.props.challenges[val].label }></PickerItemIOS>
-						) } )
-					}
+					{ options }
 				</PickerIOS>
 			</View>
 		);
