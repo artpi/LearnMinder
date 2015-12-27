@@ -16,24 +16,33 @@ import OnlineExam from './OnlineExam';
 export default React.createClass( {
 	getDefaultProps() {
 		return {
-			urlChanged: () => {},
-			dispatch: () => {},
-			url: 'https://studio.code.org/s/starwarsblocks/stage/1/puzzle/1',
-			injectedJavaScript: injectedJavaScript
+			saveChallenges: () => {},
+			win: () => {},
+			injectedJavaScript: injectedJavaScript,
+			chosenChallenge: '',
+			challenges: {}
 		};
-	},
-	urlChanged( url ) {
-		this.props.dispatch( { codeOrg_url: url } );
 	},
 	messageReceived( msg ) {
 		if ( msg === 'WIN' ) {
-			this.props.dispatch( { remainingInternet: 300 } );
+			this.props.win();
+		}
+	},
+	urlChanged( url ) {
+		this.props.challenges[ this.props.chosenChallenge ].lastUrl = url;
+		this.props.saveChallenges( this.props.challenges );
+	},
+	getUrl() {
+		let challenge = this.props.challenges[ this.props.chosenChallenge ];
+		console.log('czel', challenge);
+		if ( challenge ) {
+			return challenge.lastUrl || challenge.url;
 		}
 	},
 	render: function() {
 		return (
 			<OnlineExam
-				url={ this.props.url }
+				url={ this.getUrl() }
 				urlChanged={ this.urlChanged }
 				messageReceived={ this.messageReceived }
 				injectedJavaScript={ this.props.injectedJavaScript }

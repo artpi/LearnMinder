@@ -6,6 +6,29 @@ import NavBar from './NavBar';
 import Settings from './Settings';
 import { View, AsyncStorage } from 'react-native';
 
+const challenges = {
+	starwarsblocks: {
+		url: 'https://code.org/api/hour/begin/starwarsblocks',
+		label: 'Star Wars'
+	},
+	frozen: {
+		url: 'https://code.org/api/hour/begin/frozen',
+		label: 'Frozen with Elsa'
+	},
+	flappy: {
+		url: 'https://code.org/api/hour/begin/flappy',
+		label: 'Flappy Bird'
+	},
+	hourofcode: {
+		url: 'https://code.org/api/hour/begin/hourofcode',
+		label: 'Hour of Code'
+	},
+	mc: {
+		url: 'https://code.org/api/hour/begin/mc',
+		label: 'Minecraft'
+	},
+};
+
 const LearnMinder = React.createClass( {
 	getInitialState: function() {
 		AsyncStorage.getItem( 'STATE' ).then( value => {
@@ -14,15 +37,24 @@ const LearnMinder = React.createClass( {
 			this.setState( state );
 		} );
 
+		AsyncStorage.getItem( 'CHALLENGES' ).then( value => {
+			let state = JSON.parse( value );
+			if ( value ) {
+				this.setState( { challenges: state } );
+			}
+		} );
+
 		return {
 			scene: 'locked',
 			url: 'http://www.wp.pl',
 			remainingInternet: 30,
 			remainingSize: 18,
-			codeOrg_url: 'https://studio.code.org/s/starwarsblocks/stage/1/puzzle/1'
+			challenges: challenges,
+			chosenChallenge: 'starwars'
 		};
 	},
 	update: function( change = {} ) {
+		console.log(change);
 		if ( change.remainingInternet ) {
 			change.remainingInternet += this.state.remainingInternet;
 		}
@@ -43,12 +75,19 @@ const LearnMinder = React.createClass( {
 		let save = {
 			url: this.state.url,
 			remainingInternet: this.state.remainingInternet,
-			codeOrg_url: this.state.codeOrg_url
+			chosenChallenge: this.state.chosenChallenge
 		}
 
 		AsyncStorage.setItem( 'STATE', JSON.stringify( save ) );
 
 		this.setState( change );
+	},
+	winChallenge() {
+		this.update( { remainingInternet: 300 } );
+	},
+	saveChallenges( challenges ) {
+		this.setState( { challenges: challenges } );
+		AsyncStorage.setItem( 'CHALLENGES', JSON.stringify( challenges ) );
 	},
 	counterTimer: null,
 	tick() {
@@ -71,9 +110,18 @@ const LearnMinder = React.createClass( {
 			case 'browser':
 				return ( <Browser url={ this.state.url } urlChanged={ url => { this.update( { url } ) } }></Browser> );
 			case 'code':
-				return ( <CodeOrg dispatch={ this.update } url={ this.state.codeOrg_url } ></CodeOrg> );
+				return ( <CodeOrg
+					win={ this.winChallenge }
+					challenges={ this.state.challenges }
+					chosenChallenge={ this.state.chosenChallenge }
+					saveChallenges={ this.saveChallenges }
+				></CodeOrg> );
 			case 'settings':
-				return ( <Settings></Settings> );
+				return ( <Settings
+					challenges={ this.state.challenges }
+					chosenChallenge={ this.state.chosenChallenge }
+					save={ this.update }
+				></Settings> );
 		}
 	}
 } );
