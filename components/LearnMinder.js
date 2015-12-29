@@ -40,7 +40,7 @@ const LearnMinder = React.createClass( {
 		AsyncStorage.getItem( 'CHALLENGES' ).then( value => {
 			let state = JSON.parse( value );
 			if ( value ) {
-			//	this.setState( { challenges: state } );
+				this.setState( { challenges: state } );
 			}
 		} );
 
@@ -54,7 +54,6 @@ const LearnMinder = React.createClass( {
 		};
 	},
 	update: function( change = {} ) {
-		console.log(change);
 		if ( change.remainingInternet ) {
 			change.remainingInternet += this.state.remainingInternet;
 		}
@@ -106,7 +105,7 @@ const LearnMinder = React.createClass( {
 	renderScene: function() {
 		switch ( this.state.scene ) {
 			case 'locked':
-				return ( <Locked></Locked> );
+				return ( <Locked dispatch={ this.update }></Locked> );
 			case 'browser':
 				return ( <Browser url={ this.state.url } urlChanged={ url => { this.update( { url } ) } }></Browser> );
 			case 'code':
