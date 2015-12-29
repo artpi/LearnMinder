@@ -1,4 +1,5 @@
 rootProject.name = 'LearnMinder'
 
-include ':ReactNativeDropdownAndroid', ':app'
+include ':RNWebView',':ReactNativeDropdownAndroid', ':app'
 project(':ReactNativeDropdownAndroid').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-dropdown-android/android')
+project(':RNWebView').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-webview-android')
