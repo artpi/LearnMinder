@@ -73,7 +73,7 @@ const LearnMinder = React.createClass( {
 
 		let save = {
 			url: this.state.url,
-			remainingInternet: 3000,//this.state.remainingInternet,
+			remainingInternet: this.state.remainingInternet,
 			chosenChallenge: this.state.chosenChallenge
 		}
 
