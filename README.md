@@ -8,6 +8,8 @@ The whole challenge is presented in a narrative that “the Internet is broken�
 
 Day by day, challenge by challenge the child gets more comfortable in thinking how the websites / services / games are designed and that sometimes it’s actually more fun to create these products than to use them.
 
+### Future home: [LearnMinder.artpi.net](http://learnminder.artpi.net)
+
 ## FUTURE INTEGRATIONS INCLUDE
 
 - Coding lessons
