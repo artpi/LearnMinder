@@ -5,8 +5,13 @@ var {
 	TextInput,
 	TouchableOpacity,
 	View,
-	WebView
+	WebView,
+	Platform
 } = React;
+
+if ( Platform.OS === 'android' ) {
+	WebView = require( 'react-native-webview-android' );
+}
 
 var HEADER = '#3b5998';
 var BGWASH = 'rgba(255,255,255,0.8)';
