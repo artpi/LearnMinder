@@ -11,7 +11,8 @@ if ( !winInterval ) {
 `;
 
 import React from 'react-native';
-import OnlineExam from './OnlineExam';
+import { View } from 'react-native';
+import WebView from 'react-native-webview-bridge';
 
 export default React.createClass( {
 	getDefaultProps() {
@@ -21,6 +22,13 @@ export default React.createClass( {
 			injectedJavaScript: injectedJavaScript,
 			chosenChallenge: '',
 			challenges: {}
+		};
+	},
+	getInitialState: function() {
+		return {
+			status: 'No Page Loaded',
+			loading: true,
+			scalesPageToFit: true,
 		};
 	},
 	messageReceived( msg ) {
@@ -38,15 +46,35 @@ export default React.createClass( {
 			return challenge.lastUrl || challenge.url;
 		}
 	},
+	onShouldStartLoadWithRequest: function( event ) {
+		// Implement any custom loading logic here, don't forget to return!
+		return true;
+	},
+
+	onNavigationStateChange: function( navState ) {
+		this.urlChanged( navState.url );
+		this.setState( {
+			url: navState.url,
+			status: navState.title,
+			loading: navState.loading,
+			scalesPageToFit: true
+		} );
+	},
 	render: function() {
 		return (
-			<OnlineExam
-				url={ this.getUrl() }
-				urlChanged={ this.urlChanged }
-				messageReceived={ this.messageReceived }
-				injectedJavaScript={ this.props.injectedJavaScript }
-			>
-			</OnlineExam>
+			<View style={ { flex: 1 } }>
+				<WebView
+					ref={ 'onlineExam' }
+					automaticallyAdjustContentInsets={false}
+					url={ this.getUrl() }
+					javaScriptEnabledAndroid={true}
+					onNavigationStateChange={this.onNavigationStateChange}
+					onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
+					startInLoadingState={true}
+					scalesPageToFit={this.state.scalesPageToFit}
+					onBridgeMessage={ this.messageReceived }
+					injectedJavaScript = { this.props.injectedJavaScript } />
+			</View>
 		);
 	}
 } );
