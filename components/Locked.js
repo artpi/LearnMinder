@@ -1,5 +1,6 @@
 import React from 'react-native';
 import { View, Text, TouchableOpacity } from 'react-native';
+import style from '../style';
 
 var Locked = React.createClass( {
 	go: function( scene ) {
@@ -7,17 +8,17 @@ var Locked = React.createClass( {
 	},
 	render: function() {
 		return (
-			<View>
-				<Text style={ { textAlign: 'center', fontSize: 40, marginTop: 20, marginBottom: 20 } }>Oh noes!</Text>
-				<Text> 
+			<View style={ style.bg }>
+				<Text style={ style.title }>OH NoeS!</Text>
+				<Text style={ style.p }>
 The Internet is broken and you need to help us repair it.
 For every solved coding challenge you will have 5 min of Internet.
 You can change to a different challenge set in Settings.
 
 				</Text>
-					<TouchableOpacity 
+					<TouchableOpacity style={ style.button }
 						onPress={ this.go.bind( this, 'code' ) }>
-						<Text style={ { textAlign: 'center', fontSize: 20, marginTop: 20, marginBottom: 20 } }>
+						<Text style={ style.buttonText }>
 							Start learning to unlock internet!
 						</Text>
 					</TouchableOpacity>

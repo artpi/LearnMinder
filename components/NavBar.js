@@ -1,5 +1,6 @@
 import React from 'react-native';
 import { View, Text, TouchableHighlight } from 'react-native';
+import style from '../style';
 
 export default React.createClass({
 	remainingFormat: function() {
@@ -17,16 +18,16 @@ export default React.createClass({
 	},
 	render() {
 		return (
-			<View style={ {flexDirection: 'row', flex:1, backgroundColor: '#f8f8f8', borderTopColor: '#b2b2b2', borderTopWidth: 1, alignItems: 'center', justifyContent: 'center'} }>
+			<View style={ style.innerNavbar }>
 				<Text style={ {flex:0.3, color: '#007aff', fontWeight: 'bold', fontSize: 18, textAlign: 'center'} }>{ this.remainingFormat() }</Text>
-				<TouchableHighlight style={ {flex:0.3, alignItems: 'center', justifyContent: 'center', padding: 4, backgroundColor: '#e3e4e6', margin: 5, borderRadius: 3 } } onPress={ ()=>this.props.dispatch( { scene: 'browser' } ) }>
-					<Text style={{color: '#007aff' }}>Browse</Text>
+				<TouchableHighlight style={ style.navbarButton } onPress={ ()=>this.props.dispatch( { scene: 'browser' } ) }>
+					<Text style={ style.navbarButtonText }>Browse</Text>
 				</TouchableHighlight>
-				<TouchableHighlight style={ {flex:0.3, alignItems: 'center', justifyContent: 'center', padding: 4, backgroundColor: '#e3e4e6', margin: 5, borderRadius: 3 } } onPress={ ()=>this.props.dispatch( { scene: 'code' } ) }>
-					<Text style={{color: '#007aff'}}>Learn</Text>
+				<TouchableHighlight style={ style.navbarButton } onPress={ ()=>this.props.dispatch( { scene: 'code' } ) }>
+					<Text style={ style.navbarButtonText }>Learn</Text>
 				</TouchableHighlight>
-				<TouchableHighlight style={ {flex:0.1, alignItems: 'center', justifyContent: 'center', padding: 4, backgroundColor: '#e3e4e6', margin: 5, borderRadius: 3 } } onPress={ ()=>this.props.dispatch( { scene: 'settings' } ) }>
-					<Text style={{color: '#007aff'}}>S</Text>
+				<TouchableHighlight style={ { ...style.navbarButton, flex: 0.1 } } onPress={ ()=>this.props.dispatch( { scene: 'settings' } ) }>
+					<Text style={ style.navbarButtonText }>S</Text>
 				</TouchableHighlight>
 			</View>
 		);

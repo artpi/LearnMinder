@@ -5,6 +5,7 @@ import CodeOrg from './CodeOrg';
 import NavBar from './NavBar';
 import Settings from './Settings';
 import { View, AsyncStorage } from 'react-native';
+import style from '../style';
 
 const challenges = {
 	starwarsblocks: {
@@ -94,9 +95,9 @@ const LearnMinder = React.createClass( {
 	},
 	render: function() {
 		return (
-			<View style={ { flex:1 } }>
-				<View style={ {flex:0.925} }>{ this.renderScene() }</View>
-				<View style={ {flex:0.075} }>
+			<View style={ { ...style.bg, flex: 1 } }>
+				<View style={ {flex: 1} }>{ this.renderScene() }</View>
+				<View style={ style.navbar }>
 					<NavBar dispatch={ this.update } remainingInternet={ this.state.remainingInternet }></NavBar>
 				</View>
 			</View>
