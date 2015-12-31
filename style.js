@@ -10,10 +10,14 @@ export default {
 		backgroundColor: colorBG
 	},
 	h2: {
-		fontSize: 18,
+		fontSize: 32,
 		textAlign: 'center',
 		fontFamily: fontTitle,
 		color: colorAccent
+	},
+	select: {
+		margin: 20,
+		height: 40
 	},
 	title: {
 		textAlign: 'center',
@@ -59,17 +63,18 @@ export default {
 		justifyContent: 'center'
 	},
 	navbarButton: {
-		flex:0.4,
+		flex: 0.4,
 		alignItems: 'center',
 		justifyContent: 'center',
 		padding: 4,
-		backgroundColor:
-		'#e3e4e6',
+		backgroundColor: colorButton,
 		margin: 5,
 		borderRadius: 20
 	},
 	navbarButtonText: {
-		color: '#007aff'
+		fontFamily: fontTitle,
+		fontSize: 18
+		// fontWeight: 'bold'
 	}
 
 }
