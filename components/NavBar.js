@@ -19,9 +19,8 @@ export default React.createClass({
 	render() {
 		return (
 			<View style={ style.innerNavbar }>
-				<Text style={ {flex:0.3, color: '#007aff', fontWeight: 'bold', fontSize: 18, textAlign: 'center'} }>{ this.remainingFormat() }</Text>
 				<TouchableHighlight style={ style.navbarButton } onPress={ ()=>this.props.dispatch( { scene: 'browser' } ) }>
-					<Text style={ style.navbarButtonText }>Browse</Text>
+					<Text style={ style.navbarButtonText }>{ this.remainingFormat() }</Text>
 				</TouchableHighlight>
 				<TouchableHighlight style={ style.navbarButton } onPress={ ()=>this.props.dispatch( { scene: 'code' } ) }>
 					<Text style={ style.navbarButtonText }>Learn</Text>
