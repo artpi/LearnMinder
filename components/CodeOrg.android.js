@@ -17,7 +17,7 @@ export default React.createClass( {
 		return {
 			saveChallenges: () => {},
 			win: () => {},
-			injectedJavaScript: injectedJavaScript,
+			injectedJavaScript: '',injectedJavaScript,
 			chosenChallenge: '',
 			challenges: {}
 		};
@@ -66,15 +66,15 @@ export default React.createClass( {
 	render: function() {
 		return (
 			<WebView
-				style={ { flex: 1 } }
-				ref={ 'onlineExam' }
-				automaticallyAdjustContentInsets={false}
+				style={ { width: 360, height: 640 } }
+				//ref={ 'onlineExam' }
+				automaticallyAdjustContentInsets={true}
 				url={ this.getUrl() }
 				javaScriptEnabledAndroid={true}
 				onNavigationStateChange={this.onNavigationStateChange}
 				onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
 				startInLoadingState={true}
-				scalesPageToFit={this.state.scalesPageToFit}
+				scalesPageToFit={true}
 				injectedJavaScript = { this.props.injectedJavaScript } >
 			</WebView>
 		);
